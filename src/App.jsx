@@ -11,7 +11,7 @@ import Footer     from './components/Footer';
 
 function App() {
   return (
-    <div style={{ background: 'var(--bg)', minHeight: '100vh', position: 'relative' }}>
+    <div className="bg-parchment min-h-screen">
       <Navbar />
       <main>
         <Hero />

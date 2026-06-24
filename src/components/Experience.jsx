@@ -1,133 +1,112 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { HiOutlineAcademicCap } from 'react-icons/hi';
-import { FiMonitor } from 'react-icons/fi';
+import { FiBriefcase, FiMonitor } from 'react-icons/fi';
 
-const focusAreas = ['Web Technologies', 'Mobile Applications', 'Database Systems', 'Software Engineering'];
-
-const profHighlights = [
+const highlights = [
   'Full Stack Developer',
   'Flutter Mobile App Developer',
-  'React.js & Tailwind CSS',
-  'Django & Node.js Backend',
+  'React.js & Tailwind CSS Developer',
+  'Django & Node.js Backend Development',
   'REST API Integration',
-  'SQL & MongoDB Database',
-  'Firebase Notifications',
-  'Razorpay Payment Gateway',
-  'Problem Solving & Teamwork',
+  'SQL & MongoDB Database Management',
+  'Firebase Notification Integration',
+  'Razorpay Payment Gateway Integration',
+  'Problem Solving & Team Collaboration',
 ];
 
 const Experience = () => {
-  const ref    = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-100px' });
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <section id="education" ref={ref} style={{ padding: '120px 28px', background: 'var(--bg-2,#111111)' }}>
-      <div className="container">
+    <section id="education" ref={ref} className="py-28 px-6 bg-parchment">
+      <div className="max-w-5xl mx-auto">
 
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          style={{ textAlign: 'center', marginBottom: '80px' }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.55 }}
+          className="text-center mb-20"
         >
-          <p className="eyebrow" style={{ marginBottom: '16px' }}>Background</p>
-          <h2 className="section-title">
-            Education &amp; <em>Expertise</em>
+          <p className="text-[11px] font-700 text-gold tracking-[0.18em] uppercase mb-4">— Background</p>
+          <h2 className="font-heading font-700 text-[clamp(2rem,4.5vw,3rem)] text-obsidian
+                         tracking-tight leading-[1.1]">
+            Work & <span className="text-gold">Expertise</span>
           </h2>
-          <div className="divider" style={{ margin: '20px auto' }} />
         </motion.div>
 
-        <div className="exp-grid">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
-          {/* Education */}
+          {/* Left: Work Experience */}
           <motion.div
-            initial={{ opacity: 0, x: -36 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, ease: [0.16,1,0.3,1] }}
+            initial={{ opacity: 0, x: -24 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.65 }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px' }}>
-              <HiOutlineAcademicCap size={20} style={{ color: 'var(--gold)' }} />
-              <span style={{ fontWeight: 600, fontSize: '14px', color: 'var(--ink)', letterSpacing: '0.02em' }}>Education</span>
+            <div className="flex items-center gap-2 mb-4">
+              <FiBriefcase size={16} className="text-gold" />
+              <span className="font-heading font-700 text-[15px] text-obsidian">Work Experience</span>
             </div>
 
-            <div className="card" style={{ padding: '32px', position: 'relative', overflow: 'hidden' }}>
-              {/* Top accent */}
-              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, var(--gold), transparent)' }} />
+            <div className="bg-white rounded-2xl border border-muslin shadow-sm p-8 relative overflow-hidden">
+              <div className="absolute top-0 inset-x-0 h-[2.5px] bg-gradient-to-r from-gold to-soil rounded-t-2xl" />
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '14px', flexWrap: 'wrap', gap: '10px' }}>
+              <div className="flex justify-between items-start flex-wrap gap-3 mb-4">
                 <div>
-                  <div style={{ fontWeight: 700, fontSize: '18px', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: '4px' }}>
-                    Bachelor of Engineering
-                  </div>
-                  <div style={{ fontSize: '13px', color: 'var(--gold)', fontWeight: 500 }}>
-                    Computer Science &amp; Design
-                  </div>
+                  <h4 className="font-heading font-700 text-[17px] text-obsidian">Full Stack Developer</h4>
+                  <p className="text-[14px] font-700 text-gold mt-1">CloudRule Pvt Ltd</p>
                 </div>
-                <span style={{
-                  fontSize: '11px', fontWeight: 600, letterSpacing: '0.06em',
-                  color: 'var(--ink-3)',
-                  background: 'var(--surface)',
-                  border: '1px solid var(--border)',
-                  padding: '4px 12px', borderRadius: '4px',
-                }}>
-                  Pursuing
+                <span className="text-[11.5px] font-600 text-emerald-700 bg-emerald-50 border
+                                 border-emerald-200 px-3 py-1 rounded-full flex-shrink-0">
+                  Current
                 </span>
               </div>
 
-              <p style={{ fontSize: '13.5px', color: 'var(--ink-3)', lineHeight: 1.85, marginBottom: '24px' }}>
-                Currently pursuing a degree focused on software development, web technologies, mobile applications,
-                and database systems with a strong emphasis on practical skill-building.
+              <p className="text-[14px] text-bark leading-[1.85]">
+                Building modern web and mobile applications — React.js company websites, Flutter-based
+                cross-platform apps, and robust Node.js & Django REST backends.
               </p>
 
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                {focusAreas.map((f, i) => (
-                  <motion.span
-                    key={i}
-                    className="tag"
-                    initial={{ opacity: 0, scale: 0.85 }}
-                    animate={inView ? { opacity: 1, scale: 1 } : {}}
-                    transition={{ delay: 0.3 + i * 0.07 }}
-                  >
-                    {f}
-                  </motion.span>
+              {/* Key areas */}
+              <div className="flex flex-wrap gap-2 mt-6">
+                {['React.js', 'Flutter', 'Node.js', 'Django', 'Firebase', 'SQL'].map(t => (
+                  <span key={t}
+                    className="text-[11.5px] font-600 px-2.5 py-1 rounded-md bg-gold-muted
+                               border border-gold-border text-gold tracking-wide">
+                    {t}
+                  </span>
                 ))}
               </div>
             </div>
           </motion.div>
 
-          {/* Professional Highlights */}
+          {/* Right: Professional Highlights */}
           <motion.div
-            initial={{ opacity: 0, x: 36 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.12, ease: [0.16,1,0.3,1] }}
+            initial={{ opacity: 0, x: 24 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.65, delay: 0.1 }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px' }}>
-              <FiMonitor size={18} style={{ color: 'var(--gold)' }} />
-              <span style={{ fontWeight: 600, fontSize: '14px', color: 'var(--ink)', letterSpacing: '0.02em' }}>Professional Highlights</span>
+            <div className="flex items-center gap-2 mb-4">
+              <FiMonitor size={16} className="text-gold" />
+              <span className="font-heading font-700 text-[15px] text-obsidian">Professional Highlights</span>
             </div>
 
-            <div className="card" style={{ padding: '28px' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                {profHighlights.map((item, i) => (
+            <div className="bg-white rounded-2xl border border-muslin shadow-sm p-7">
+              <div className="flex flex-col divide-y divide-muslin">
+                {highlights.map((item, i) => (
                   <motion.div
                     key={i}
-                    initial={{ opacity: 0, x: 16 }}
-                    animate={inView ? { opacity: 1, x: 0 } : {}}
-                    transition={{ duration: 0.35, delay: 0.2 + i * 0.055 }}
-                    whileHover={{ x: 4, backgroundColor: 'var(--surface-2)' }}
-                    style={{
-                      display: 'flex', alignItems: 'center', gap: '12px',
-                      padding: '10px 14px',
-                      borderRadius: '8px',
-                      background: 'transparent',
-                      transition: 'all 0.25s ease',
-                      cursor: 'default',
-                    }}
+                    initial={{ opacity: 0, x: 14 }}
+                    animate={isInView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ duration: 0.36, delay: 0.18 + i * 0.04 }}
+                    className="flex items-center gap-3 py-3 first:pt-0 last:pb-0
+                               hover:text-soil transition-colors duration-150 group cursor-default"
                   >
-                    <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: 'var(--gold)', flexShrink: 0, opacity: 0.7 }} />
-                    <span style={{ color: 'var(--ink-2)', fontSize: '13.5px', fontWeight: 400 }}>{item}</span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-gold flex-shrink-0
+                                     group-hover:scale-125 transition-transform duration-150" />
+                    <span className="text-[13.5px] font-500 text-bark group-hover:text-soil
+                                     transition-colors duration-150">{item}</span>
                   </motion.div>
                 ))}
               </div>
@@ -136,18 +115,6 @@ const Experience = () => {
 
         </div>
       </div>
-
-      <style>{`
-        .exp-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 40px;
-          align-items: start;
-        }
-        @media (max-width: 768px) {
-          .exp-grid { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
     </section>
   );
 };

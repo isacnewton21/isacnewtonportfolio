@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FiMail, FiPhone, FiGithub, FiLinkedin } from 'react-icons/fi';
+import { FiMail, FiPhone, FiGithub, FiLinkedin, FiHeart } from 'react-icons/fi';
 
 const quickLinks = [
   { label: 'Home',      href: '#home' },
@@ -12,8 +12,8 @@ const quickLinks = [
 ];
 
 const socials = [
-  { icon: <FiGithub size={16} />,   href: '#',                            label: 'GitHub' },
-  { icon: <FiLinkedin size={16} />, href: '#',                            label: 'LinkedIn' },
+  { icon: <FiGithub size={16} />,   href: '#',                             label: 'GitHub' },
+  { icon: <FiLinkedin size={16} />, href: '#',                             label: 'LinkedIn' },
   { icon: <FiMail size={16} />,     href: 'mailto:isacnewton63@gmail.com', label: 'Email' },
   { icon: <FiPhone size={16} />,    href: 'tel:+916374800632',             label: 'Phone' },
 ];
@@ -22,62 +22,34 @@ const Footer = () => {
   const year = new Date().getFullYear();
 
   return (
-    <footer style={{
-      borderTop: '1px solid var(--border)',
-      background: 'var(--bg)',
-      padding: '64px 28px 36px',
-      position: 'relative',
-    }}>
-      {/* Subtle glow */}
-      <div style={{
-        position: 'absolute', top: '-60px', left: '50%', transform: 'translateX(-50%)',
-        width: '300px', height: '120px',
-        background: 'radial-gradient(ellipse, rgba(201,169,110,0.04) 0%, transparent 70%)',
-        pointerEvents: 'none',
-      }} />
+    <footer className="bg-parchment border-t border-muslin pt-16 pb-8 px-6">
+      <div className="max-w-5xl mx-auto">
 
-      <div className="container" style={{ position: 'relative' }}>
-        <div className="footer-grid">
+        {/* Main grid */}
+        <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-12 mb-14">
 
           {/* Brand */}
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
-              <div style={{
-                width: '30px', height: '30px',
-                border: '1px solid rgba(201,169,110,0.35)',
-                borderRadius: '6px',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: '12px', fontWeight: 700, color: 'var(--gold)',
-              }}>
-                IN
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
+                <span className="font-heading font-800 text-[11px] text-white">IN</span>
               </div>
-              <span style={{ fontWeight: 600, fontSize: '15px', color: 'var(--ink)', letterSpacing: '-0.02em' }}>
-                Isac Newton
-              </span>
+              <span className="font-heading font-700 text-[16px] text-obsidian tracking-tight">Isac Newton</span>
             </div>
-            <p style={{ color: 'var(--ink-3)', fontSize: '13px', lineHeight: 1.8, maxWidth: '240px', marginBottom: '20px' }}>
-              Full Stack &amp; Flutter Developer building modern web and mobile applications.
+            <p className="text-[13.5px] text-bark leading-[1.8] max-w-[260px] mb-6">
+              Full Stack & Flutter Developer at CloudRule Pvt Ltd — building modern web and mobile applications.
             </p>
-            {/* Social icons */}
-            <div style={{ display: 'flex', gap: '8px' }}>
+            {/* Socials */}
+            <div className="flex gap-2">
               {socials.map(s => (
                 <motion.a
                   key={s.label}
                   href={s.href}
                   aria-label={s.label}
-                  whileHover={{ scale: 1.05 }}
-                  style={{
-                    width: '34px', height: '34px',
-                    background: 'var(--surface)',
-                    border: '1px solid var(--border)',
-                    borderRadius: '8px',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    color: 'var(--ink-3)',
-                    textDecoration: 'none',
-                    transition: 'color 0.2s, border-color 0.2s',
-                  }}
-                  onMouseEnter={e => { e.currentTarget.style.color = 'var(--gold)'; e.currentTarget.style.borderColor = 'rgba(201,169,110,0.3)'; }}
-                  onMouseLeave={e => { e.currentTarget.style.color = 'var(--ink-3)'; e.currentTarget.style.borderColor = 'var(--border)'; }}
+                  whileHover={{ scale: 1.1 }}
+                  className="w-9 h-9 bg-white border border-muslin rounded-xl flex items-center
+                             justify-center text-bark hover:text-gold hover:border-gold-border
+                             shadow-sm transition-all duration-200"
                 >
                   {s.icon}
                 </motion.a>
@@ -87,19 +59,17 @@ const Footer = () => {
 
           {/* Quick links */}
           <div>
-            <p style={{ fontSize: '11px', color: 'var(--ink-3)', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '18px' }}>
-              Navigation
-            </p>
-            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              {quickLinks.map(l => (
-                <li key={l.label}>
+            <h4 className="font-heading font-700 text-[12px] text-obsidian uppercase tracking-[0.12em] mb-5">
+              Quick links
+            </h4>
+            <ul className="list-none flex flex-col gap-3">
+              {quickLinks.map(link => (
+                <li key={link.label}>
                   <a
-                    href={l.href}
-                    style={{ fontSize: '13.5px', color: 'var(--ink-3)', textDecoration: 'none', transition: 'color 0.2s' }}
-                    onMouseEnter={e => e.target.style.color = 'var(--ink)'}
-                    onMouseLeave={e => e.target.style.color = 'var(--ink-3)'}
+                    href={link.href}
+                    className="text-[13.5px] text-bark hover:text-gold transition-colors duration-200"
                   >
-                    {l.label}
+                    {link.label}
                   </a>
                 </li>
               ))}
@@ -108,50 +78,40 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <p style={{ fontSize: '11px', color: 'var(--ink-3)', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '18px' }}>
+            <h4 className="font-heading font-700 text-[12px] text-obsidian uppercase tracking-[0.12em] mb-5">
               Contact
-            </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {[
-                { icon: <FiMail size={13} />, value: 'isacnewton63@gmail.com', href: 'mailto:isacnewton63@gmail.com' },
-                { icon: <FiPhone size={13} />, value: '+91 6374800632',          href: 'tel:+916374800632' },
-              ].map((c, i) => (
-                <a
-                  key={i}
-                  href={c.href}
-                  style={{ display: 'flex', alignItems: 'center', gap: '9px', color: 'var(--ink-3)', fontSize: '13px', textDecoration: 'none', transition: 'color 0.2s' }}
-                  onMouseEnter={e => e.currentTarget.style.color = 'var(--gold)'}
-                  onMouseLeave={e => e.currentTarget.style.color = 'var(--ink-3)'}
-                >
-                  {c.icon} {c.value}
-                </a>
-              ))}
+            </h4>
+            <div className="flex flex-col gap-3">
+              <a href="mailto:isacnewton63@gmail.com"
+                className="flex items-center gap-2.5 text-[13px] text-bark hover:text-gold
+                           transition-colors duration-200">
+                <FiMail size={13} /> isacnewton63@gmail.com
+              </a>
+              <a href="tel:+916374800632"
+                className="flex items-center gap-2.5 text-[13px] text-bark hover:text-gold
+                           transition-colors duration-200">
+                <FiPhone size={13} /> +91 6374800632
+              </a>
+
             </div>
           </div>
 
         </div>
 
-        {/* Bottom bar */}
-        <div style={{ marginTop: '52px', paddingTop: '24px', borderTop: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
-          <p style={{ fontSize: '12px', color: 'var(--ink-3)' }}>
+        {/* Divider */}
+        <div className="h-px bg-muslin mb-7" />
+
+        {/* Bottom */}
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-3">
+          <p className="text-[12px] text-driftwood">
             © {year} Isac Newton. All rights reserved.
           </p>
-          <p style={{ fontSize: '12px', color: 'var(--ink-3)' }}>
-            Built with React
+          <p className="flex items-center gap-1.5 text-[12px] text-driftwood">
+            Built with <FiHeart size={11} className="text-rose-400" /> using React & Tailwind CSS
           </p>
         </div>
-      </div>
 
-      <style>{`
-        .footer-grid {
-          display: grid;
-          grid-template-columns: 2fr 1fr 1fr;
-          gap: 56px;
-        }
-        @media (max-width: 768px) {
-          .footer-grid { grid-template-columns: 1fr !important; gap: 36px; }
-        }
-      `}</style>
+      </div>
     </footer>
   );
 };

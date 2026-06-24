@@ -7,43 +7,39 @@ const roles = [
   'Flutter Developer',
   'React.js Developer',
   'Django Developer',
-  'Backend Engineer',
+  'Backend Developer',
 ];
 
-const useTypewriter = (words, speed = 75, pause = 2200) => {
-  const [text,       setText]       = useState('');
-  const [wordIndex,  setWordIndex]  = useState(0);
-  const [charIndex,  setCharIndex]  = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
+const useTypewriter = (words, speed = 78, pause = 2400) => {
+  const [text, setText]           = useState('');
+  const [wordIdx, setWordIdx]     = useState(0);
+  const [charIdx, setCharIdx]     = useState(0);
+  const [deleting, setDeleting]   = useState(false);
 
   useEffect(() => {
-    const current = words[wordIndex];
-    const delay   = isDeleting ? speed / 2 : speed;
-    const timer   = setTimeout(() => {
-      if (!isDeleting && charIndex < current.length) {
-        setText(current.slice(0, charIndex + 1));
-        setCharIndex(c => c + 1);
-      } else if (isDeleting && charIndex > 0) {
-        setText(current.slice(0, charIndex - 1));
-        setCharIndex(c => c - 1);
-      } else if (!isDeleting && charIndex === current.length) {
-        setTimeout(() => setIsDeleting(true), pause);
-      } else if (isDeleting && charIndex === 0) {
-        setIsDeleting(false);
-        setWordIndex(i => (i + 1) % words.length);
+    const cur   = words[wordIdx];
+    const delay = deleting ? speed / 2 : speed;
+    const t = setTimeout(() => {
+      if (!deleting && charIdx < cur.length) {
+        setText(cur.slice(0, charIdx + 1)); setCharIdx(c => c + 1);
+      } else if (deleting && charIdx > 0) {
+        setText(cur.slice(0, charIdx - 1)); setCharIdx(c => c - 1);
+      } else if (!deleting && charIdx === cur.length) {
+        setTimeout(() => setDeleting(true), pause);
+      } else if (deleting && charIdx === 0) {
+        setDeleting(false); setWordIdx(i => (i + 1) % words.length);
       }
     }, delay);
-    return () => clearTimeout(timer);
-  }, [charIndex, isDeleting, wordIndex, words, speed, pause]);
+    return () => clearTimeout(t);
+  }, [charIdx, deleting, wordIdx, words, speed, pause]);
 
   return text;
 };
 
 const Hero = () => {
   const typedText = useTypewriter(roles);
-
   const stats = [
-    { num: '3+',  label: 'Projects' },
+    { num: '3+',  label: 'Projects Built' },
     { num: '5+',  label: 'Technologies' },
     { num: 'B.E', label: 'CS & Design' },
   ];
@@ -51,150 +47,113 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="grid-bg"
-      style={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        padding: '130px 28px 90px',
-        position: 'relative',
-        overflow: 'hidden',
-      }}
+      className="dot-grid min-h-screen flex items-center pt-20 pb-16 px-6 relative overflow-hidden"
     >
-      {/* Subtle radial glow */}
-      <div style={{
-        position: 'absolute',
-        top: '30%', left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: '700px', height: '700px',
-        background: 'radial-gradient(circle, rgba(201,169,110,0.04) 0%, transparent 65%)',
-        pointerEvents: 'none',
-      }} />
+      {/* Warm glow */}
+      <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+        <div className="w-[640px] h-[640px] rounded-full opacity-30"
+          style={{ background: 'radial-gradient(circle, rgb(192 160 96 / 0.1) 0%, transparent 70%)' }} />
+      </div>
 
-      <div className="container" style={{ width: '100%' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '80px', alignItems: 'center' }}>
+      <div className="max-w-5xl mx-auto w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-16 lg:gap-20 items-center">
 
-          {/* ── Left content ── */}
+          {/* ── Left ── */}
           <div>
-            {/* Availability badge */}
+            {/* Company badge */}
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              style={{ marginBottom: '28px', display: 'flex', alignItems: 'center', gap: '8px' }}
+              transition={{ duration: 0.5 }}
+              className="mb-8"
             >
-              <span style={{
-                display: 'inline-flex', alignItems: 'center', gap: '8px',
-                border: '1px solid rgba(201,169,110,0.25)',
-                background: 'rgba(201,169,110,0.05)',
-                borderRadius: '50px',
-                padding: '5px 14px',
-                fontSize: '12px', fontWeight: 500, color: '#c9a96e',
-                letterSpacing: '0.05em',
-              }}>
-                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#c9a96e', display: 'inline-block', boxShadow: '0 0 6px #c9a96e' }} />
-                Open to Opportunities
-              </span>
+              
             </motion.div>
 
             {/* Name */}
             <motion.h1
-              initial={{ opacity: 0, y: 28 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-              style={{
-                fontSize: 'clamp(2.6rem, 6vw, 5rem)',
-                fontWeight: 700,
-                lineHeight: 1.08,
-                letterSpacing: '-0.035em',
-                color: 'var(--ink)',
-                marginBottom: '10px',
-              }}
+              transition={{ duration: 0.65, delay: 0.08 }}
+              className="font-heading font-800 text-obsidian tracking-tight leading-[1.06]
+                         text-[clamp(2.8rem,6vw,5.2rem)] mb-3"
             >
               Isac Newton
             </motion.h1>
 
-            {/* Typewriter role */}
+            {/* Typewriter */}
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              style={{ marginBottom: '26px', height: '36px', display: 'flex', alignItems: 'center' }}
+              transition={{ duration: 0.5, delay: 0.16 }}
+              className="h-9 flex items-center mb-7"
             >
-              <span style={{
-                fontSize: 'clamp(1rem, 2.5vw, 1.3rem)',
-                color: 'var(--ink-2)',
-                fontWeight: 400,
-                letterSpacing: '-0.01em',
-              }}>
-                {typedText}
-                <span className="cursor-blink" />
+              <span className="text-[clamp(1rem,2.5vw,1.3rem)] font-medium text-bark tracking-tight">
+                {typedText}<span className="cursor-blink" />
               </span>
             </motion.div>
 
-            {/* Divider */}
+            {/* Gold rule */}
             <motion.div
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
-              transition={{ duration: 0.6, delay: 0.25 }}
+              transition={{ duration: 0.5, delay: 0.22 }}
               style={{ transformOrigin: 'left' }}
-            >
-              <div className="divider" />
-            </motion.div>
+              className="w-10 h-0.5 bg-gold rounded-full mb-7"
+            />
 
             {/* Bio */}
             <motion.p
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              style={{
-                fontSize: '15px',
-                color: 'var(--ink-3)',
-                lineHeight: 1.85,
-                maxWidth: '480px',
-                marginBottom: '40px',
-              }}
+              transition={{ duration: 0.5, delay: 0.28 }}
+              className="text-[15px] text-bark leading-[1.85] max-w-[480px] mb-10"
             >
-              Full Stack &amp; Flutter Developer building modern, scalable web
-              and mobile applications with React, Django, and Node.js.
+              Building modern, scalable web and mobile applications at{' '}
+              <span className="text-soil font-semibold">CloudRule Pvt Ltd</span>{' '}
+              using React, Flutter, Django, and Node.js.
             </motion.p>
 
-            {/* CTA buttons */}
+            {/* CTA Buttons */}
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}
+              transition={{ duration: 0.5, delay: 0.36 }}
+              className="flex flex-wrap gap-3"
             >
-              <a href="#projects" className="btn btn-gold">
-                View Projects <FiArrowRight size={15} />
+              <a href="#projects"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-soil text-parchment
+                           text-[13.5px] font-semibold tracking-wide hover:bg-obsidian
+                           transition-colors duration-200 shadow-sm">
+                View Projects <FiArrowRight size={14} />
               </a>
-              <a href="#contact" className="btn btn-ghost">
-                <FiMail size={15} /> Contact Me
+              <a href="#contact"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-muslin
+                           text-[13.5px] font-semibold text-bark hover:border-driftwood hover:text-soil
+                           transition-all duration-200 bg-white shadow-sm">
+                <FiMail size={14} /> Contact Me
               </a>
-              <a href="/resume.pdf" download className="btn btn-ghost">
-                <FiDownload size={15} /> Résumé
+              <a href="/resume.pdf" download
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-muslin
+                           text-[13.5px] font-semibold text-bark hover:border-driftwood hover:text-soil
+                           transition-all duration-200 bg-white shadow-sm">
+                <FiDownload size={14} /> Resume
               </a>
             </motion.div>
 
             {/* Stats */}
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              style={{ display: 'flex', gap: '48px', marginTop: '60px' }}
+              transition={{ duration: 0.5, delay: 0.44 }}
+              className="flex gap-12 mt-14 pt-10 border-t border-muslin"
             >
               {stats.map((s, i) => (
                 <div key={i}>
-                  <div style={{
-                    fontSize: '1.9rem', fontWeight: 700,
-                    letterSpacing: '-0.04em', color: 'var(--ink)',
-                    lineHeight: 1,
-                    marginBottom: '5px',
-                  }}>
+                  <div className="font-heading font-800 text-[2rem] text-soil tracking-tight leading-none mb-1">
                     {s.num}
                   </div>
-                  <div style={{ fontSize: '12px', color: 'var(--ink-3)', fontWeight: 500, letterSpacing: '0.04em' }}>
+                  <div className="text-[11px] font-semibold text-driftwood tracking-widest uppercase">
                     {s.label}
                   </div>
                 </div>
@@ -202,56 +161,50 @@ const Hero = () => {
             </motion.div>
           </div>
 
-          {/* ── Right: Terminal card ── */}
+          {/* ── Right: Card ── */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.35 }}
-            className="card hero-card"
-            style={{
-              width: '300px',
-              padding: '28px',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '20px',
-            }}
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="hidden lg:flex flex-col gap-5 w-[288px] bg-white rounded-2xl border border-muslin
+                       shadow-sm p-7"
           >
-            {/* Terminal dots */}
-            <div style={{ display: 'flex', gap: '6px' }}>
-              {['#3d3d3d','#4a4a4a','#555'].map((c,i) => (
-                <div key={i} style={{ width: '9px', height: '9px', borderRadius: '50%', background: c }} />
+            {/* Chrome dots */}
+            <div className="flex gap-1.5">
+              {['bg-red-300', 'bg-amber-300', 'bg-green-300'].map((c, i) => (
+                <div key={i} className={`w-2.5 h-2.5 rounded-full ${c}`} />
               ))}
             </div>
 
-            {/* Code block */}
-            <pre style={{
-              fontFamily: "'SF Mono', 'Fira Code', monospace",
-              fontSize: '12px',
-              lineHeight: 1.7,
-              color: 'var(--ink-2)',
-              margin: 0,
-            }}>
-              <span style={{ color: 'var(--ink-3)' }}>{'// developer.json'}</span>{'\n'}
-              <span style={{ color: '#c9a96e' }}>{'{'}</span>{'\n'}
-              {'  '}<span style={{ color: 'var(--ink-2)' }}>name</span>{': '}
-              <span style={{ color: '#a8d8a8' }}>"Isac Newton"</span>{',\n'}
-              {'  '}<span style={{ color: 'var(--ink-2)' }}>role</span>{': '}
-              <span style={{ color: '#a8d8a8' }}>"Full Stack"</span>{',\n'}
-              {'  '}<span style={{ color: 'var(--ink-2)' }}>stack</span>{': [\n'}
-              {'    '}<span style={{ color: '#a8d8a8' }}>"React"</span>{', '}
-              <span style={{ color: '#a8d8a8' }}>"Flutter"</span>{',\n'}
-              {'    '}<span style={{ color: '#a8d8a8' }}>"Django"</span>{', '}
-              <span style={{ color: '#a8d8a8' }}>"Node"</span>{'\n'}
+            {/* Code */}
+            <pre className="font-mono text-[11.5px] leading-[1.75] text-bark m-0">
+              <span className="text-driftwood">{'// developer.json'}</span>{'\n'}
+              <span className="text-gold">{'{'}</span>{'\n'}
+              {'  '}<span className="text-soil">name</span>{': '}
+              <span className="text-green-700">"Isac Newton"</span>{',\n'}
+              {'  '}<span className="text-soil">role</span>{': '}
+              <span className="text-green-700">"Full Stack"</span>{',\n'}
+              {'  '}<span className="text-soil">company</span>{': '}
+              <span className="text-green-700">"CloudRule"</span>{',\n'}
+              {'  '}<span className="text-soil">stack</span>{': [\n'}
+              {'    '}<span className="text-green-700">"React"</span>{', '}
+              <span className="text-green-700">"Flutter"</span>{',\n'}
+              {'    '}<span className="text-green-700">"Django"</span>{', '}
+              <span className="text-green-700">"Node"</span>{'\n'}
               {'  ],\n'}
-              {'  '}<span style={{ color: 'var(--ink-2)' }}>open</span>{': '}
-              <span style={{ color: '#c9a96e' }}>true</span>{'\n'}
-              <span style={{ color: '#c9a96e' }}>{'}'}</span>
+              {'  '}<span className="text-soil">status</span>{': '}
+              <span className="text-gold">"employed"</span>{'\n'}
+              <span className="text-gold">{'}'}</span>
             </pre>
 
             {/* Tags */}
-            <div style={{ borderTop: '1px solid var(--border)', paddingTop: '16px', display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+            <div className="flex flex-wrap gap-1.5 pt-4 border-t border-muslin">
               {['React', 'Flutter', 'Django', 'Node.js'].map(t => (
-                <span key={t} className="tag">{t}</span>
+                <span key={t}
+                  className="text-[11px] font-semibold px-2.5 py-1 rounded-md bg-gold-muted
+                             border border-gold-border text-gold tracking-wide">
+                  {t}
+                </span>
               ))}
             </div>
           </motion.div>
@@ -259,42 +212,7 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        animate={{ y: [0, 7, 0] }}
-        transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
-        style={{
-          position: 'absolute',
-          bottom: '32px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '8px',
-        }}
-      >
-        <span style={{ fontSize: '10px', color: 'var(--ink-3)', letterSpacing: '0.14em', textTransform: 'uppercase', fontWeight: 500 }}>Scroll</span>
-        <div className="scroll-mouse">
-          <motion.div
-            className="scroll-dot"
-            animate={{ y: [0, 13, 0] }}
-            transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
-          />
-        </div>
-      </motion.div>
 
-      <style>{`
-        @media (max-width: 768px) {
-          .hero-card { display: none !important; }
-          #home > div > div > div:first-child {
-            grid-column: 1 / -1;
-          }
-          #home > div > div {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
     </section>
   );
 };
