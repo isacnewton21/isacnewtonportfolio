@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { FiMail, FiPhone, FiLinkedin, FiGithub, FiArrowUpRight } from 'react-icons/fi';
+import { FiMail, FiLinkedin, FiGithub, FiArrowUpRight } from 'react-icons/fi';
 
 const contactItems = [
   {
@@ -10,22 +10,16 @@ const contactItems = [
     href: 'mailto:isacnewton63@gmail.com',
   },
   {
-    icon: <FiPhone size={20} />,
-    label: 'Phone',
-    value: '+91 6374800632',
-    href: 'tel:+916374800632',
-  },
-  {
     icon: <FiLinkedin size={20} />,
     label: 'LinkedIn',
-    value: 'To Be Updated',
-    href: '#',
+    value: 'isac-newton',
+    href: 'https://www.linkedin.com/in/isac-newton-9aa547373',
   },
   {
     icon: <FiGithub size={20} />,
     label: 'GitHub',
-    value: 'To Be Updated',
-    href: '#',
+    value: 'isacnewton21',
+    href: 'https://github.com/isacnewton21',
   },
 ];
 
@@ -60,6 +54,8 @@ const Contact = () => {
             <motion.a
               key={i}
               href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.1 + i * 0.09, duration: 0.5 }}

@@ -19,7 +19,7 @@ const Experience = () => {
   const isInView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <section id="education" ref={ref} className="py-28 px-6 bg-parchment">
+    <section id="experience" ref={ref} className="py-28 px-6 bg-parchment">
       <div className="max-w-5xl mx-auto">
 
         {/* Header */}

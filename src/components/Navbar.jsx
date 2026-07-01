@@ -3,18 +3,35 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FiMenu, FiX } from 'react-icons/fi';
 
 const navLinks = [
-  { label: 'Home',      href: '#home' },
-  { label: 'About',     href: '#about' },
-  { label: 'Skills',    href: '#skills' },
-  { label: 'Projects',  href: '#projects' },
+  { label: 'Home',         href: '#home' },
+  { label: 'About',        href: '#about' },
+  { label: 'Skills',       href: '#skills' },
+  { label: 'Projects',     href: '#projects' },
   { label: 'Work experience', href: '#experience' },
-  { label: 'Contact',   href: '#contact' },
+  { label: 'Contact',      href: '#contact' },
 ];
 
 const Navbar = () => {
   const [scrolled,      setScrolled]      = useState(false);
   const [menuOpen,      setMenuOpen]      = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+
+  /* Shared scroll handler — no hash in URL */
+  const handleNav = (e, href, closeMobile = false) => {
+    e.preventDefault();
+    const id = href.slice(1);
+    if (closeMobile) {
+      // Close menu first → wait for exit animation (240ms) → then scroll
+      setMenuOpen(false);
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 280);
+    } else {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   useEffect(() => {
     const onScroll = () => {
@@ -46,7 +63,11 @@ const Navbar = () => {
       <div className="max-w-5xl mx-auto px-6 flex items-center justify-between h-16">
 
         {/* Logo */}
-        <a href="#home" className="flex items-center gap-3 group">
+        <a
+          href="#home"
+          onClick={(e) => handleNav(e, '#home')}
+          className="flex items-center gap-3 group"
+        >
           <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center flex-shrink-0">
             <span className="font-heading font-bold text-[11px] text-white tracking-tight">IN</span>
           </div>
@@ -61,6 +82,7 @@ const Navbar = () => {
             <li key={link.label}>
               <a
                 href={link.href}
+                onClick={(e) => handleNav(e, link.href)}
                 className={`relative text-[13px] font-medium transition-colors duration-200 pb-0.5 ${
                   activeSection === link.href.slice(1)
                     ? 'text-soil'
@@ -104,7 +126,7 @@ const Navbar = () => {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    onClick={() => setMenuOpen(false)}
+                    onClick={(e) => handleNav(e, link.href, true)}
                     className="text-[15px] font-medium text-bark hover:text-soil transition-colors"
                   >
                     {link.label}

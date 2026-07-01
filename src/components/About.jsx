@@ -11,7 +11,6 @@ const About = () => {
     { label: 'Company', value: 'CloudRule Pvt Ltd',              highlight: true },
     { label: 'Degree',  value: 'B.E. CS & Design' },
     { label: 'Email',   value: 'isacnewton63@gmail.com' },
-    { label: 'Phone',   value: '+91 6374800632' },
   ];
 
   const highlights = [

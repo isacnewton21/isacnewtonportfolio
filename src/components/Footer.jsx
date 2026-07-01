@@ -1,25 +1,30 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FiMail, FiPhone, FiGithub, FiLinkedin, FiHeart } from 'react-icons/fi';
+import { FiMail, FiGithub, FiLinkedin, FiHeart } from 'react-icons/fi';
 
 const quickLinks = [
-  { label: 'Home',      href: '#home' },
-  { label: 'About',     href: '#about' },
-  { label: 'Skills',    href: '#skills' },
-  { label: 'Projects',  href: '#projects' },
-  { label: 'Education', href: '#education' },
-  { label: 'Contact',   href: '#contact' },
+  { label: 'Home',            href: '#home' },
+  { label: 'About',           href: '#about' },
+  { label: 'Skills',          href: '#skills' },
+  { label: 'Projects',        href: '#projects' },
+  { label: 'Work Experience', href: '#experience' },
+  { label: 'Contact',         href: '#contact' },
 ];
 
 const socials = [
-  { icon: <FiGithub size={16} />,   href: '#',                             label: 'GitHub' },
-  { icon: <FiLinkedin size={16} />, href: '#',                             label: 'LinkedIn' },
+  { icon: <FiGithub size={16} />,   href: 'https://github.com/isacnewton21', label: 'GitHub' },
+  { icon: <FiLinkedin size={16} />, href: 'https://www.linkedin.com/in/isac-newton-9aa547373', label: 'LinkedIn' },
   { icon: <FiMail size={16} />,     href: 'mailto:isacnewton63@gmail.com', label: 'Email' },
-  { icon: <FiPhone size={16} />,    href: 'tel:+916374800632',             label: 'Phone' },
 ];
 
 const Footer = () => {
   const year = new Date().getFullYear();
+
+  const handleScroll = (e, href) => {
+    e.preventDefault();
+    const el = document.getElementById(href.slice(1));
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <footer className="bg-parchment border-t border-muslin pt-16 pb-8 px-6">
@@ -46,6 +51,8 @@ const Footer = () => {
                   key={s.label}
                   href={s.href}
                   aria-label={s.label}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   whileHover={{ scale: 1.1 }}
                   className="w-9 h-9 bg-white border border-muslin rounded-xl flex items-center
                              justify-center text-bark hover:text-gold hover:border-gold-border
@@ -67,6 +74,7 @@ const Footer = () => {
                 <li key={link.label}>
                   <a
                     href={link.href}
+                    onClick={(e) => handleScroll(e, link.href)}
                     className="text-[13.5px] text-bark hover:text-gold transition-colors duration-200"
                   >
                     {link.label}
@@ -87,12 +95,6 @@ const Footer = () => {
                            transition-colors duration-200">
                 <FiMail size={13} /> isacnewton63@gmail.com
               </a>
-              <a href="tel:+916374800632"
-                className="flex items-center gap-2.5 text-[13px] text-bark hover:text-gold
-                           transition-colors duration-200">
-                <FiPhone size={13} /> +91 6374800632
-              </a>
-
             </div>
           </div>
 
