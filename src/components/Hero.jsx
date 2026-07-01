@@ -133,12 +133,14 @@ const Hero = () => {
                            transition-all duration-200 bg-white shadow-sm">
                 <FiMail size={14} /> Contact Me
               </a>
+              {/* Resume button — uncomment after adding /public/resume.pdf
               <a href="/resume.pdf" download
                 className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-muslin
                            text-[13.5px] font-semibold text-bark hover:border-driftwood hover:text-soil
                            transition-all duration-200 bg-white shadow-sm">
                 <FiDownload size={14} /> Resume
               </a>
+              */}
             </motion.div>
 
             {/* Stats */}
