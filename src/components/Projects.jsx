@@ -1,19 +1,22 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { FiArrowUpRight } from 'react-icons/fi';
 
 const projects = [
+
   {
-    id: 1,
-    title: 'CloudRule Website',
-    role: 'Full Stack Developer',
+    id: 2,
+    title: 'Royal Seafoods App',
+    role: 'Full Stack & Flutter Developer',
     status: 'Completed',
     statusClass: 'text-emerald-700 bg-emerald-50 border-emerald-200',
     dotClass: 'bg-emerald-500',
-    description: 'Developed a modern and responsive company website for CloudRule Pvt Ltd showcasing business services with clean, professional UI and optimised performance.',
-    tech: ['React.js', 'Tailwind CSS'],
+    description: 'A seafood ordering and delivery application enabling customers to browse, order, pay online via Razorpay, and track purchases in real-time.',
+    tech: ['Flutter', 'Django', 'SQL', 'Firebase', 'Razorpay'],
+    link: 'https://play.google.com/store/apps/details?id=com.royalseafoods.customer',
   },
   {
-    id: 2,
+    id: 1,
     title: 'Home Service App',
     role: 'Full Stack & Flutter Developer',
     status: 'In Development',
@@ -22,31 +25,26 @@ const projects = [
     description: 'A service marketplace platform connecting customers with trusted service providers — with booking management, real-time Firebase notifications, and user authentication.',
     tech: ['Flutter', 'Node.js', 'Express.js', 'SQL', 'Firebase'],
   },
-  {
-    id: 3,
-    title: 'Royal Seafoods App',
-    role: 'Full Stack & Flutter Developer',
-    status: 'Completed',
-    statusClass: 'text-emerald-700 bg-emerald-50 border-emerald-200',
-    dotClass: 'bg-emerald-500',
-    description: 'A seafood ordering and delivery application enabling customers to browse, order, pay online via Razorpay, and track purchases in real-time.',
-    tech: ['Flutter', 'Django', 'SQL', 'Firebase', 'Razorpay'],
-  },
+
 ];
 
 const ProjectCard = ({ project, index }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-60px' });
+  const CardComponent = project.link ? motion.a : motion.div;
 
   return (
-    <motion.div
+    <CardComponent
       ref={ref}
+      href={project.link}
+      target={project.link ? '_blank' : undefined}
+      rel={project.link ? 'noopener noreferrer' : undefined}
       initial={{ opacity: 0, y: 40 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.52, delay: index * 0.1 }}
-      className="bg-white rounded-2xl border border-muslin shadow-sm p-8 relative overflow-hidden
+      className={`bg-white rounded-2xl border border-muslin shadow-sm p-8 relative overflow-hidden
                  hover:border-stone-300 hover:shadow-md transition-all duration-300 group
-                 flex flex-col"
+                 flex flex-col no-underline ${project.link ? 'cursor-pointer' : ''}`}
     >
       {/* Hover top bar */}
       <div className="absolute top-0 inset-x-0 h-[2.5px] bg-gradient-to-r from-gold to-soil
@@ -55,7 +53,17 @@ const ProjectCard = ({ project, index }) => {
       {/* Header */}
       <div className="flex justify-between items-start gap-4 mb-5 flex-wrap">
         <div>
-          <h3 className="font-heading font-700 text-[17px] text-obsidian mb-0.5">{project.title}</h3>
+          <div className="flex items-center gap-1.5">
+            <h3 className="font-heading font-700 text-[17px] text-obsidian mb-0.5 group-hover:text-gold transition-colors">
+              {project.title}
+            </h3>
+            {project.link && (
+              <FiArrowUpRight
+                size={16}
+                className="text-driftwood group-hover:text-gold group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-200 mb-0.5"
+              />
+            )}
+          </div>
           <span className="text-[12px] font-500 text-driftwood">{project.role}</span>
         </div>
         <span className={`inline-flex items-center gap-1.5 text-[11.5px] font-600 px-3 py-1
@@ -78,7 +86,7 @@ const ProjectCard = ({ project, index }) => {
           </span>
         ))}
       </div>
-    </motion.div>
+    </CardComponent>
   );
 };
 
@@ -108,7 +116,7 @@ const Projects = () => {
         </motion.div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {projects.map((p, i) => <ProjectCard key={p.id} project={p} index={i} />)}
         </div>
 
